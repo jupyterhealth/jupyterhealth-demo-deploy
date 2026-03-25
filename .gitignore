@@ -205,3 +205,12 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+.terraform
+
+# don't commit decrypted files
+*.dec.*
+
+charts/**/charts
+tmpcharts*
+.DS_Store
