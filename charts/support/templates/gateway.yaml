@@ -1,0 +1,35 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: default
+  annotations:
+    cert-manager.io/cluster-issuer: {{ .Values.gateway.issuerName }}
+spec:
+  gatewayClassName: eg
+  infrastructure:
+      parametersRef:
+        group: gateway.envoyproxy.io
+        kind: EnvoyProxy
+        name: default-proxy-config
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+    # need one listener per hostname.
+    # gateway doesn't need this,
+    # but cert-manager gateway support does
+    # listenerSets might help
+    # ref: https://github.com/cert-manager/cert-manager/issues/6051
+    {{- range .Values.gateway.hostnames }}
+    - name: https-{{ . }}
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: All
+      hostname: {{ . | quote }}
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: default-gateway-{{ . }}
+    {{- end }}

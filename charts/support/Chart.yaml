@@ -1,0 +1,18 @@
+apiVersion: v2
+description: Support chart for the cluster
+name: support
+version: "0.0.0"
+kubeVersion: ">= 1.32.0-0"
+dependencies:
+  - name: gateway-helm
+    version: v1.8.0
+    repository: oci://docker.io/envoyproxy
+  - name: prometheus
+    version: "27.36.0"
+    repository: https://prometheus-community.github.io/helm-charts
+  - name: grafana
+    version: "9.4.4"
+    repository: https://grafana.github.io/helm-charts
+  - name: cert-manager
+    version: "v1.20.2"
+    repository: oci://quay.io/jetstack/charts

@@ -1,0 +1,39 @@
+ci:
+  autoupdate_schedule: monthly
+
+repos:
+  # autoformat and lint Python code
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.12.11
+    hooks:
+      - id: ruff-check
+        types_or:
+          - python
+          - jupyter
+        args: ["--fix", "--show-fixes"]
+      - id: ruff-format
+        types_or:
+          - python
+          - jupyter
+
+  - repo: https://github.com/hukkin/mdformat
+    rev: 1.0.0
+    hooks:
+    - id: mdformat
+      additional_dependencies:
+      - mdformat-gfm
+      - mdformat-black
+  
+  # toml
+  - repo: https://github.com/ComPWA/taplo-pre-commit
+    rev: v0.9.3
+    hooks:
+      - id: taplo-format
+
+  # yaml
+  - repo: https://github.com/rbubley/mirrors-prettier
+    rev: v3.8.1
+    hooks:
+      - id: prettier
+        types_or:
+          - yaml
