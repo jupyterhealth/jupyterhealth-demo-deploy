@@ -11,7 +11,7 @@ clusterIssuer:
   email: minrk@berkeley.edu
 
 gateway:
-  issuerName: letsencrypt-staging
+  issuerName: letsencrypt-prod
   # need to specify each hostname individually on the gateway
   # for cert-manager
   hostnames: []

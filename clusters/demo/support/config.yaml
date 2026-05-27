@@ -11,9 +11,12 @@ clusterEntryPoint:
 gateway:
   # every httpRoute in the Cluster must be duplicated here
   hostnames:
+    # support
     - demo.jupyterhealth.org
     - grafana.demo.jupyterhealth.org
     - prometheus.demo.jupyterhealth.org
+    # deployments
+    - berkeley-jhe-staging.jupyterhealth.org
 
 grafana:
   route:
