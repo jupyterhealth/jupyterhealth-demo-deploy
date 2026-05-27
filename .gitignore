@@ -214,3 +214,5 @@ __marimo__/
 charts/**/charts
 tmpcharts*
 .DS_Store
+
+Chart.lock
