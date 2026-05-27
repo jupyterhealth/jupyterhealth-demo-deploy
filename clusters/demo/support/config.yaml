@@ -1,0 +1,39 @@
+clusterEntryPoint:
+  annotations:
+    # this is a mess, but some subset of it is needed
+    # for cert-manager's hairpin "self check" to work
+    service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: "true"
+    service.beta.kubernetes.io/do-loadbalancer-hostname: "workaround.demo-cluster.jupyterhealth.org"
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+
+gateway:
+  # every httpRoute in the Cluster must be duplicated here
+  hostnames:
+    - demo-cluster.jupyterhealth.org
+    - grafana.demo-cluster.jupyterhealth.org
+    - prometheus.demo-cluster.jupyterhealth.org
+    - jhe.staging.demo-cluster.jupyterhealth.org
+
+grafana:
+  route:
+    main:
+      hostnames:
+        - grafana.demo-cluster.jupyterhealth.org
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: prometheus
+          orgId: 1
+          type: prometheus
+          url: https://prometheus.demo-cluster.jupyterhealth.org
+          isDefault: true
+          editable: false
+prometheus:
+  server:
+    route:
+      main:
+        hostnames:
+          - prometheus.demo-cluster.jupyterhealth.org

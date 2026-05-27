@@ -1,0 +1,8 @@
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: default-proxy-config
+spec:
+  {{- with .Values.gateway.config }}
+  {{ . | toYaml | nindent 2 }}
+  {{- end }}

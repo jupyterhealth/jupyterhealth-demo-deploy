@@ -1,0 +1,68 @@
+clusterEntryPoint:
+  enabled: true
+  service:
+    type: LoadBalancer
+    selector:
+      gateway.envoyproxy.io/owning-gateway-name: default
+      gateway.envoyproxy.io/owning-gateway-namespace: support
+
+clusterIssuer:
+  enabled: true
+  email: minrk@berkeley.edu
+
+gateway:
+  issuerName: letsencrypt-staging
+  # need to specify each hostname individually on the gateway
+  # for cert-manager
+  hostnames: []
+  config:
+    # passthrough for EnvoyProxy config
+    # https://gateway.envoyproxy.io/docs/tasks/operations/customize-envoyproxy/
+    provider:
+      type: Kubernetes
+
+cert-manager:
+  extraArgs:
+    # workaround hairpin routing issue with cluster DNS
+    - "--acme-http01-solver-nameservers=8.8.8.8:53,1.1.1.1:53"
+  config:
+    enableGatewayAPI: true
+
+grafana:
+  grafana.ini:
+    auth.anonymous:
+      enabled: true
+      org_name: BIDS
+      org_role: Viewer
+    auth.basic:
+      enabled: true
+  route:
+    main:
+      enabled: true
+      parentRefs:
+        - name: default
+          namespace: support
+  persistence:
+    size: 2Gi
+    enabled: true
+    accessModes:
+      - ReadWriteOnce
+
+prometheus:
+  alertmanager:
+    enabled: false
+  prometheus-pushgateway:
+    enabled: false
+  rbac:
+    create: true
+  server:
+    route:
+      main:
+        enabled: true
+        parentRefs:
+          - name: default
+            namespace: support
+  kube-state-metrics:
+    metricLabelsAllowlist:
+      - pods=[app,component]
+      - nodes=[*]
