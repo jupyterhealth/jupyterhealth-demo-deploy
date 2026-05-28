@@ -37,3 +37,17 @@ repos:
       - id: prettier
         types_or:
           - yaml
+
+  # github actions security checks
+  - repo: https://github.com/zizmorcore/zizmor-pre-commit
+    rev: 9257c6050c0261b8c57e712f632dc4a8010109a9 # frozen: v1.25.2
+    hooks:
+      - id: zizmor
+        args:
+          - --fix=all
+
+  # github actions
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.12
+    hooks:
+      - id: actionlint
