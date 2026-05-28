@@ -34,7 +34,15 @@ def load_kubeconfig(session, cluster_name: str, kubeconfig: Path) -> None:
     env["AWS_REGION"] = creds["aws"]["region"]
     aws_cluster_name = creds["aws"].get("cluster_name", cluster_name)
     env["KUBECONFIG"] = kubeconfig
-    session.run("aws", "eks", "update-kubeconfig", "--name", aws_cluster_name, env=env, external=True)
+    session.run(
+        "aws",
+        "eks",
+        "update-kubeconfig",
+        "--name",
+        aws_cluster_name,
+        env=env,
+        external=True,
+    )
 
 
 def set_kubeconfig(session, cluster_name: str) -> None:

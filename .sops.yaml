@@ -1,2 +1,5 @@
 creation_rules:
   - kms: arn:aws:kms:us-east-2:703671906202:key/3248747d-b630-494f-9747-50e9b6e695a9
+stores:
+  yaml:
+    indent: 2
