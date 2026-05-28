@@ -1,0 +1,10 @@
+jhe:
+  httpRoute:
+    hostnames:
+      - berkeley-jhe-demo.jupyterhealth.org
+  env:
+    ALLOWED_HOSTS: localhost,berkeley-jhe-demo.jupyterhealth.org
+    DJANGO_LOG_LEVEL: DEBUG
+    PRACTITIONER_DEFAULT_ORGS: 20014:viewer
+    SITE_TITLE: JupyterHealth Exchange Demo
+    SITE_URL: https://berkeley-jhe-demo.jupyterhealth.org

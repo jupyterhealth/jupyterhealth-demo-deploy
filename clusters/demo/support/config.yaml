@@ -17,6 +17,7 @@ gateway:
     - prometheus.demo.jupyterhealth.org
     # deployments
     - berkeley-jhe-staging.jupyterhealth.org
+    - berkeley-jhe-demo.jupyterhealth.org
 
 grafana:
   route:
