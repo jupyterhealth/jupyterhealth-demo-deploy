@@ -9,9 +9,6 @@ import yaml
 cluster_name = os.getenv("CLUSTER_NAME", "demo")
 jhe_name = os.getenv("JHE_NAME")
 
-if jhe_name is None:
-    sys.exit("Must set $JHE_NAME to the current deployment: export JHE_NAME=staging")
-
 ROOT = Path(__file__).parent.resolve()
 CHARTS = ROOT / "charts"
 SUPPORT_CHART = CHARTS / "support"
@@ -76,7 +73,10 @@ def decrypt_file(session, src: Path):
 @nox.session(python=False)
 def decrypt(session):
     cluster_path = cluster_dir(cluster_name)
-    for parent_dir in (cluster_path, config_dir(jhe_name), config_dir("_common")):
+    parents = [cluster_path, config_dir("_common")]
+    if jhe_name:
+        parents.append(config_dir(jhe_name))
+    for parent_dir in parents:
         for src in parent_dir.rglob("*.enc.*"):
             decrypt_file(session, src)
 
@@ -133,6 +133,11 @@ def helm_support(session):
 
 @nox.session(python=False)
 def helm_jhe(session):
+    if jhe_name is None:
+        sys.exit(
+            "Must set $JHE_NAME to the current deployment: export JHE_NAME=staging"
+        )
+
     decrypt(session)
     common_path = config_dir("_common")
     jhe_path = config_dir(jhe_name)
