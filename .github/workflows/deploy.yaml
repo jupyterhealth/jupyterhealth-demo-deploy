@@ -1,0 +1,57 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - main
+      - oidc
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    environment: deploy
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
+        with:
+          python-version: "3.13"
+
+      - name: install requirements
+        run: |
+          pip install -r requirements.txt
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
+        with:
+          role-to-assume: arn:aws:iam::703671906202:role/github-deploy
+          aws-region: us-east-2
+
+      - name: install sops
+        uses: step-security/mozilla-sops-action@3a824d062e37d86cbea2b3cb1d09e84e69447989 # v1
+
+      - name: test decrypt
+        run: |
+          nox -s decrypt
+
+      - name: update support
+        run: |
+          nox -s helm_support
+
+      - name: upgrade staging
+        run: |
+          nox -s helm_jhe
+        env:
+          JHE_NAME: staging
+
+      - name: upgrade prod
+        run: |
+          nox -s helm_jhe
+        env:
+          JHE_NAME: prod
