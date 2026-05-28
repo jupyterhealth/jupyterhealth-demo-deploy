@@ -1,0 +1,17 @@
+version: 2
+updates:
+  # Maintain dependencies in our GitHub Workflows
+  - package-ecosystem: github-actions
+    directory: /
+    groups:
+      # group actions PRs
+      official:
+        patterns:
+          - "actions/*"
+      actions:
+        patterns:
+          - "*"
+    schedule:
+      interval: monthly
+    cooldown:
+      default-days: 7
