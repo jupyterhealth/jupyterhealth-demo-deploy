@@ -1,0 +1,13 @@
+apiVersion: v2
+name: jhe
+version: 0.0.1
+appVersion: 0.8.0
+description: JupyterHealth Exchange demo
+home: https://jupyterhealth.org
+sources:
+  - https://github.com/jupyterhealth/jupyterhealth-demo-deploy
+kubeVersion: ">= 1.32.0-0"
+dependencies:
+  - name: jhe
+    version: 0.0.1-0.dev.git.20.ha3bc934
+    repository: oci://ghcr.io/jupyterhealth/helm

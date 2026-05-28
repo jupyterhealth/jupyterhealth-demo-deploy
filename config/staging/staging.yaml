@@ -1,0 +1,12 @@
+jhe:
+  httpRoute:
+    hostnames:
+      - berkeley-jhe-staging.jupyterhealth.org
+  env:
+    ALLOWED_HOSTS: localhost,berkeley-jhe-staging.jupyterhealth.org
+    CH_INVITATION_LINK_PREFIX: https://play.google.com/store/apps/details?id=org.thecommonsproject.android.phr.dev&referrer=cloud_sharing=
+    DEBUG: "1"
+    DJANGO_LOG_LEVEL: DEBUG
+    PRACTITIONER_DEFAULT_ORGS: 20024:viewer;20029:viewer
+    SITE_TITLE: JupyterHealth Exchange (staging)
+    SITE_URL: https://berkeley-jhe-staging.jupyterhealth.org
