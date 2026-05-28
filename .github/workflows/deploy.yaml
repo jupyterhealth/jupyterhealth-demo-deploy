@@ -10,6 +10,8 @@ permissions:
   contents: read
   id-token: write
 
+concurrency: deploy
+
 jobs:
   deploy:
     runs-on: ubuntu-24.04
