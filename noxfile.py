@@ -69,7 +69,7 @@ def decrypt_file(session, src: Path):
     session.run("sops", "decrypt", src, "--output", dest, external=True)
 
 
-@nox.session
+@nox.session(python=False)
 def decrypt(session):
     cluster_path = cluster_dir(cluster_name)
     for parent_dir in (cluster_path, config_dir(jhe_name), config_dir("_common")):
@@ -77,14 +77,14 @@ def decrypt(session):
             decrypt_file(session, src)
 
 
-@nox.session
+@nox.session(python=False)
 def kubectl(session):
     decrypt(session)
     set_kubeconfig(session, cluster_name)
     session.run("kubectl", *session.posargs, external=True)
 
 
-@nox.session
+@nox.session(python=False)
 def helm_support_upgrade_crds(session):
     decrypt(session)
     set_kubeconfig(session, cluster_name)
@@ -106,7 +106,7 @@ def helm_support_upgrade_crds(session):
         )
 
 
-@nox.session
+@nox.session(python=False)
 def helm_support(session):
     decrypt(session)
     cluster_path = cluster_dir(cluster_name)
@@ -127,7 +127,7 @@ def helm_support(session):
     )
 
 
-@nox.session
+@nox.session(python=False)
 def helm_jhe(session):
     decrypt(session)
     common_path = config_dir("_common")
