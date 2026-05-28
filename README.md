@@ -7,7 +7,7 @@ Deployment configuration for JupyterHealth demo at Berkeley.
 This repo contains two charts:
 
 1. `support` which contains per-cluster resources (Gateway, prometheus, grafana, cert-manager)
-2. `jhe` which deploys JupyterHealth exchange
+1. `jhe` which deploys JupyterHealth exchange
 
 For each _cluster_ `support` is deployed once.
 For each _deployment_, `jhe` is deployed once.
@@ -44,7 +44,6 @@ In order for these commands to work, files encrypted with `sops` must be decrypt
 This generally means being logged in with the aws cli.
 
 TODO: Authenticate deployment from GitHub using GitHub Actions OIDC.
-
 
 ## Secrets with SOPS
 

@@ -10,11 +10,11 @@ quote-style = "preserve"
 
 [tool.ruff.lint]
 ignore = [
-    "F841", # unused variable
+  "F841", # unused variable
 ]
 select = [
-    "E9", # syntax
-    "I", # isort
-    "UP", # pyupgrade
-    "F", # flake8
+  "E9", # syntax
+  "I",  # isort
+  "UP", # pyupgrade
+  "F",  # flake8
 ]
