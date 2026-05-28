@@ -19,8 +19,8 @@ def cluster_dir(cluster_name):
     return ROOT / "clusters" / cluster_name
 
 
-def config_dir(cluster_name):
-    return ROOT / "config" / cluster_name
+def config_dir(name):
+    return ROOT / "config" / name
 
 
 def load_kubeconfig(session, cluster_name: str, kubeconfig: Path) -> None:
