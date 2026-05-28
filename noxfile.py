@@ -1,4 +1,5 @@
 import os
+import sys
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 
@@ -6,7 +7,10 @@ import nox
 import yaml
 
 cluster_name = os.getenv("CLUSTER_NAME", "demo")
-jhe_name = os.getenv("JHE_NAME", "staging")
+jhe_name = os.getenv("JHE_NAME")
+
+if jhe_name is None:
+    sys.exit("Must set $JHE_NAME to the current deployment: export JHE_NAME=staging")
 
 ROOT = Path(__file__).parent.resolve()
 CHARTS = ROOT / "charts"
