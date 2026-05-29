@@ -5,7 +5,7 @@ version: "0.0.0"
 kubeVersion: ">= 1.32.0-0"
 dependencies:
   - name: gateway-helm
-    version: 1.9.0
+    version: v1.8.0
     repository: oci://docker.io/envoyproxy
   - name: prometheus
     version: 29.9.0
