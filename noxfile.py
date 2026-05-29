@@ -25,15 +25,12 @@ def config_dir(name):
 
 def load_kubeconfig(session, cluster_name: str, kubeconfig: Path) -> None:
     cluster_path = cluster_dir(cluster_name)
-    creds_file = cluster_path / "creds.dec.yaml"
-    with creds_file.open() as f:
-        creds = yaml.safe_load(f)
-    # don't include AWS env
-    env = {key: var for key, var in os.environ.items() if not key.startswith("AWS_")}
-    env["AWS_ACCESS_KEY"] = creds["aws"]["access_key"]
-    env["AWS_SECRET_KEY"] = creds["aws"]["secret_key"]
-    env["AWS_REGION"] = creds["aws"]["region"]
-    aws_cluster_name = creds["aws"].get("cluster_name", cluster_name)
+    config_file = cluster_path / "config.yaml"
+    with config_file.open() as f:
+        config = yaml.safe_load(f)
+    env = os.environ.copy()
+    env["AWS_REGION"] = config["aws"]["region"]
+    aws_cluster_name = config["aws"].get("cluster_name", cluster_name)
     env["KUBECONFIG"] = kubeconfig
     session.run(
         "aws",
