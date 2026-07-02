@@ -5,7 +5,7 @@ version: "0.0.0"
 kubeVersion: ">= 1.32.0-0"
 dependencies:
   - name: gateway-helm
-    version: 1.9.0
+    version: v1.8.0
     repository: oci://docker.io/envoyproxy
   - name: prometheus
     version: 29.9.0
@@ -14,5 +14,5 @@ dependencies:
     version: 10.5.15
     repository: https://grafana.github.io/helm-charts
   - name: cert-manager
-    version: 1.21.0
+    version: "v1.20.2"
     repository: oci://quay.io/jetstack/charts
