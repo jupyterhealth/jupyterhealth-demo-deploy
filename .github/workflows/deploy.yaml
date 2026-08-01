@@ -29,13 +29,13 @@ jobs:
           pip install -r requirements.txt
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@e7f100cf4c008499ea8adda475de1042d6975c7b # v6.2.0
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
         with:
           role-to-assume: arn:aws:iam::703671906202:role/github-deploy
           aws-region: us-east-2
 
       - name: install sops
-        uses: step-security/mozilla-sops-action@3a824d062e37d86cbea2b3cb1d09e84e69447989 # v1
+        uses: step-security/mozilla-sops-action@0a79ddf4263479188c0a3a012054bec090ce80bd # v2.1.0
 
       - name: test decrypt
         run: |
