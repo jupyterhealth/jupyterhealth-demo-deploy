@@ -1,0 +1,12 @@
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: HTTPRouteFilter
+metadata:
+  name: fhir-uppercase
+  namespace: {{ .Namespace }}
+spec:
+  urlRewrite:
+    path:
+      type: ReplaceRegexMatch
+      replaceRegexMatch:
+        pattern: '^/fhir/r5/(.*)$'
+        substitution: '/FHIR/R5/\1'

@@ -6,3 +6,9 @@ jhe:
     parentRefs:
       - name: default
         namespace: support
+    filters:
+      - type: ExtensionRef
+        extensionRef:
+          group: gateway.envoyproxy.io
+          kind: HTTPRouteFilter
+          name: fhir-uppercase
