@@ -12,3 +12,12 @@ jhe:
           group: gateway.envoyproxy.io
           kind: HTTPRouteFilter
           name: fhir-uppercase
+  mcp:
+    enabled: true
+    service:
+      type: ClusterIP
+    httpRoute:
+      enabled: true
+      parentRefs:
+        - name: default
+          namespace: support

@@ -6,6 +6,9 @@ jhe:
     ALLOWED_HOSTS: localhost,berkeley-jhe-staging.jupyterhealth.org
     DEBUG: "1"
     DJANGO_LOG_LEVEL: DEBUG
-    PRACTITIONER_DEFAULT_ORGS: 20024:viewer;20029:viewer
     SITE_TITLE: JupyterHealth Exchange (staging)
     SITE_URL: https://berkeley-jhe-staging.jupyterhealth.org
+  mcp:
+    httpRoute:
+      hostnames:
+        - mcp.berkeley-jhe-staging.jupyterhealth.org
