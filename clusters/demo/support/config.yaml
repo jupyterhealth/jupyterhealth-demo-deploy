@@ -18,6 +18,8 @@ gateway:
     # deployments
     - berkeley-jhe-staging.jupyterhealth.org
     - berkeley-jhe-demo.jupyterhealth.org
+    - mcp.berkeley-jhe-staging.jupyterhealth.org
+    - mcp.berkeley-jhe-demo.jupyterhealth.org
 
 grafana:
   route:
