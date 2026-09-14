@@ -7,7 +7,6 @@ jhe:
     SITE_TITLE: JupyterHealth Exchange Demo
     SITE_URL: https://berkeley-jhe-demo.jupyterhealth.org
   mcp:
-    env:
     httpRoute:
       hostnames:
         - mcp.berkeley-jhe-demo.jupyterhealth.org
