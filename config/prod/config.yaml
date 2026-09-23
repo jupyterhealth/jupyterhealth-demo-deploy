@@ -1,4 +1,21 @@
 jhe:
+  # replicas * workers = concurrent request limit
+  replicas: 2
+  workers: 4
+  readinessProbe:
+    timeoutSeconds: 10
+    periodSeconds: 11
+  resources:
+    limits:
+      cpu: 2
+      memory: 700M
+    requests:
+      cpu: 1
+      # testing suggests ~125M per worker
+      # 2: 250M
+      # 8: 1G
+      # 12: 1.4G
+      memory: 500M
   httpRoute:
     hostnames:
       - berkeley-jhe-demo.jupyterhealth.org
