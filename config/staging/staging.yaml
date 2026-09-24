@@ -9,6 +9,8 @@ jhe:
     SITE_TITLE: JupyterHealth Exchange (staging)
     SITE_URL: https://berkeley-jhe-staging.jupyterhealth.org
   mcp:
+    env:
+      MCP_RESOURCE_URL: https://mcp.berkeley-jhe-staging.jupyterhealth.org
     httpRoute:
       hostnames:
         - mcp.berkeley-jhe-staging.jupyterhealth.org
