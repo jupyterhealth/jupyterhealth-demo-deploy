@@ -1,4 +1,6 @@
+import base64
 import os
+import subprocess
 import sys
 from pathlib import Path
 from tempfile import NamedTemporaryFile
@@ -13,6 +15,7 @@ ROOT = Path(__file__).parent.resolve()
 CHARTS = ROOT / "charts"
 SUPPORT_CHART = CHARTS / "support"
 JHE_CHART = CHARTS / "jhe"
+SCRIPTS = ROOT / "scripts"
 
 
 def cluster_dir(cluster_name):
@@ -93,6 +96,8 @@ def helm_support_upgrade_crds(session):
     # apply any CRD upgrades (e.g. cert-manager, envoy gateway)
     # helm cannot upgrade CRDs
     # from https://github.com/traefik/traefik-helm-chart?tab=readme-ov-file#upgrade-the-standalone-traefik-chart
+    # note: cert-manager CRDs don't show up here,
+    # `kubectl apply` them  from https://github.com/cert-manager/cert-manager/releases
     with NamedTemporaryFile() as f:
         session.run("helm", "show", "crds", SUPPORT_CHART, external=True, stdout=f)
         f.flush()
@@ -148,6 +153,7 @@ def helm_jhe(session):
         "helm",
         "upgrade",
         "--install",
+        "--force-conflicts",
         "--namespace",
         jhe_name,
         jhe_name,
@@ -155,3 +161,61 @@ def helm_jhe(session):
         *values_args,
         external=True,
     )
+
+
+@nox.session(python=False)
+def setup_ow(session):
+    if jhe_name is None:
+        sys.exit(
+            "Must set $JHE_NAME to the current deployment: export JHE_NAME=staging"
+        )
+
+    decrypt(session)
+    set_kubeconfig(session, cluster_name)
+    common_path = config_dir("_common")
+    jhe_path = config_dir(jhe_name)
+    assert common_path.exists()
+    assert jhe_path.exists()
+    secret_yaml = session.run(
+        "kubectl",
+        "get",
+        "secret",
+        "-n",
+        jhe_name,
+        f"{jhe_name}-jhe-ow-backend",
+        "-o",
+        "yaml",
+        silent=True,
+        external=True,
+    )
+    secret = yaml.safe_load(secret_yaml)
+    admin_email = base64.b64decode(secret['data']['ADMIN_EMAIL'])
+    admin_password = base64.b64decode(secret['data']['ADMIN_PASSWORD'])
+    ow_url = f"http://{jhe_name}-jhe-ow-backend"
+    # session.run doesn't support stdin
+    subprocess.run(
+        [
+            "kubectl",
+            "exec",
+            "-i",
+            "-n",
+            jhe_name,
+            f"deployments/{jhe_name}-jhe",
+            "-c",
+            "jhe",
+            "--",
+            "python3",
+            "-",
+            ow_url,
+            admin_email,
+            admin_password,
+        ],
+        input=(SCRIPTS / "setup_ow.py").read_bytes(),
+        check=True,
+    )
+
+
+@nox.session(python=False)
+def checkit(session):
+    r = session.run(["echo", "111"])
+    print(repr(r))
