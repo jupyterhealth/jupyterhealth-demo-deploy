@@ -198,6 +198,8 @@ def setup_ow(session):
             "kubectl",
             "exec",
             "-i",
+            "-n",
+            jhe_name,
             f"deployments/{jhe_name}-jhe",
             "-c",
             "jhe",
