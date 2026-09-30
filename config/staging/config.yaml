@@ -14,3 +14,10 @@ jhe:
     httpRoute:
       hostnames:
         - mcp.berkeley-jhe-staging.jupyterhealth.org
+  openWearables:
+    backend:
+      env:
+        ADMIN_EMAIL: admin@berkeley-jhe-staging.jupyterhealth.org
+    httpRoute:
+      hostnames:
+        - ow.berkeley-jhe-staging.jupyterhealth.org

@@ -21,3 +21,11 @@ jhe:
       parentRefs:
         - name: default
           namespace: support
+
+  openWearables:
+    enabled: true
+    httpRoute:
+      enabled: true
+      parentRefs:
+        - name: default
+          namespace: support

@@ -20,6 +20,8 @@ gateway:
     - berkeley-jhe-demo.jupyterhealth.org
     - mcp.berkeley-jhe-staging.jupyterhealth.org
     - mcp.berkeley-jhe-demo.jupyterhealth.org
+    - ow.berkeley-jhe-staging.jupyterhealth.org
+    - ow.berkeley-jhe-demo.jupyterhealth.org
 
 grafana:
   route:
