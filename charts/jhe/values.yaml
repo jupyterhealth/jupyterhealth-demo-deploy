@@ -29,3 +29,46 @@ jhe:
       parentRefs:
         - name: default
           namespace: support
+
+# in this chart
+
+# smart-on-fhir demo
+sof:
+  enabled: true
+  replicas: 1
+  image: ghcr.io/jupyterhealth/jupyterhealth-sof-provider-template:main
+  imagePullPolicy: Always
+  command: []
+  args: []
+  resources: {}
+  env:
+    # common
+    SMART_SCOPES: "openid fhirUser launch patient/*.read"
+    EHR_IFRAME_ORIGIN: https://app.medplum.com
+    MRN_IDENTIFIER_SYSTEM: MedPlumMRN
+    # override in deployments
+    JHE_CLIENT_ID: ""
+    JHE_CLIENT_SECRET: ""
+
+  podSecurityContext:
+    runAsNonRoot: true
+    fsGroup: 1000
+    seccompProfile:
+      type: "RuntimeDefault"
+  containerSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+
+  httpRoute:
+    # -- Expose JHE via Gateway HTTPRoute
+    enabled: true
+    annotations: {}
+    hostnames: []
+    parentRefs:
+      - name: default
+        namespace: support
+  service:
+    annotations: {}
