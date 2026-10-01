@@ -1,5 +1,5 @@
 apiVersion: v2
-name: jhe
+name: jhedemo
 version: 0.0.1
 description: JupyterHealth Exchange demo
 home: https://jupyterhealth.org

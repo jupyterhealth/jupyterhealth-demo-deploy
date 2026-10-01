@@ -1,0 +1,109 @@
+{{- $self := .Values.sof }}
+{{- if $self.enabled }}
+{{- $component := "sof" }}
+{{- $name := printf "%s-%s" (include "jhe.fullname" .) $component }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $name }}
+  labels:
+    app.kubernetes.io/component: sof
+    {{- include "jhe.labels" . | nindent 4 }}
+spec:
+  replicas: {{ $self.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: sof
+      {{- include "jhe.matchLabels" . | nindent 6 }}
+  {{- if $self.deploymentStrategy }}
+  strategy:
+    {{- $self.deploymentStrategy | toYaml | trimSuffix "\n" | nindent 4 }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: {{ $component }}
+        {{- include "jhe.matchLabels" . | nindent 8 }}
+      annotations:
+        # This lets us autorestart when the secret changes!
+        checksum/secret: {{ include (print .Template.BasePath "/sof/secret.yaml") . | sha256sum }}
+        {{- if $self.annotations }}
+        {{- $self.annotations | toYaml | trimSuffix "\n" | nindent 8 }}
+        {{- end }}
+    spec:
+      nodeSelector: {{ toJson $self.nodeSelector }}
+      {{- with ($self.podSecurityContext | default $.Values.podSecurityContext) }}
+      securityContext:
+        {{- . | toYaml | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: sof
+          image: {{ $self.image }}
+          {{- with $self.command }}
+          command:
+            {{- .  | toYaml | trimSuffix "\n" | nindent 12 }}
+          {{- end }}
+          {{- with $self.args }}
+          args:
+            {{- .  | toYaml | trimSuffix "\n" | nindent 12 }}
+          {{- end }}
+
+          {{- with ($self.containerSecurityContext | default $.Values.containerSecurityContext) }}
+          securityContext:
+            {{- . | toYaml | nindent 12 }}
+          {{- end }}
+    
+          {{- with $self.resources }}
+          resources:
+            {{- . | toYaml | trimSuffix "\n" | nindent 12 }}
+          {{- end }}
+          {{- with .Values.imagePullPolicy }}
+          imagePullPolicy: {{ . }}
+          {{- end }}
+          envFrom:
+            - secretRef:
+                name: {{ $name }}
+          env:
+            - name: PYTHONUNBUFFERED
+              value: "1"
+            - name: HOME
+              value: /tmp/
+            - name: JHE_URL
+              value: http://{{ template "jhe.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local
+          ports:
+            - containerPort: 8888
+              name: http
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              httpHeaders:
+              - name: Host
+                value: localhost
+              path: /api
+              port: http
+              scheme: HTTP
+            periodSeconds: 5
+            timeoutSeconds: 15
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              httpHeaders:
+              - name: Host
+                value: localhost
+              path: /api
+              port: http
+              scheme: HTTP
+            periodSeconds: 5
+            timeoutSeconds: 8
+          startupProbe:
+            failureThreshold: 30
+            httpGet:
+              httpHeaders:
+              - name: Host
+                value: localhost
+              path: /api
+              port: http
+              scheme: HTTP
+            periodSeconds: 1
+            timeoutSeconds: 1
+{{- end }}

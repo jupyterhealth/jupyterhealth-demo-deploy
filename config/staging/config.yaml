@@ -21,3 +21,8 @@ jhe:
     httpRoute:
       hostnames:
         - ow.berkeley-jhe-staging.jupyterhealth.org
+
+sof:
+  httpRoute:
+    hostnames:
+      - sof.berkeley-jhe-staging.jupyterhealth.org

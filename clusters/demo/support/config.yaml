@@ -22,6 +22,8 @@ gateway:
     - mcp.berkeley-jhe-demo.jupyterhealth.org
     - ow.berkeley-jhe-staging.jupyterhealth.org
     - ow.berkeley-jhe-demo.jupyterhealth.org
+    - sof.berkeley-jhe-staging.jupyterhealth.org
+    - sof.berkeley-jhe-demo.jupyterhealth.org
 
 grafana:
   route:

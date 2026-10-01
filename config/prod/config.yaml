@@ -36,3 +36,8 @@ jhe:
     httpRoute:
       hostnames:
         - ow.berkeley-jhe-demo.jupyterhealth.org
+
+sof:
+  httpRoute:
+    hostnames:
+      - sof.berkeley-jhe-demo.jupyterhealth.org
