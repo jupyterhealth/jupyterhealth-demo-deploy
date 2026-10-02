@@ -40,6 +40,7 @@ sof:
     SMART_SCOPES: "openid fhirUser launch patient/*.read"
     EHR_IFRAME_ORIGIN: https://app.medplum.com
     MRN_IDENTIFIER_SYSTEM: MedPlumMRN
+    SMART_CLIENT_ID: 99d4ba2d-3bc4-40d8-830c-b60d615482ed
     # override in deployments
     JHE_CLIENT_ID: ""
     JHE_CLIENT_SECRET: ""
