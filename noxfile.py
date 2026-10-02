@@ -153,7 +153,6 @@ def helm_jhe(session):
         "helm",
         "upgrade",
         "--install",
-        "--force-conflicts",
         "--namespace",
         jhe_name,
         jhe_name,
