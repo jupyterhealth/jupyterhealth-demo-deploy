@@ -16,6 +16,24 @@ jhe:
       # 8: 1G
       # 12: 1.4G
       memory: 500M
+
+  coreData:
+    assetlinks.json:
+      - relation:
+          - delegate_permission/common.handle_all_urls
+        target:
+          namespace: android_app
+          package_name: com.jupyter.health.staging
+          sha256_cert_fingerprints:
+            - "39:7D:A1:A1:A5:B3:26:C1:F1:5A:A5:69:D0:C6:1C:C5:67:47:11:9E:09:93:E2:A5:A5:B2:14:15:FB:07:58:47"
+    apple-app-site-association.json:
+      applinks:
+        details:
+          - appIDs:
+              - KZJSZ95597.com.jupyter.health
+            components:
+              - /: /clients/ucsf-edge/*
+                comment: UCSF Edge invitation links
   httpRoute:
     hostnames:
       - berkeley-jhe-demo.jupyterhealth.org
