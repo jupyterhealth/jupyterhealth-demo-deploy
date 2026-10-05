@@ -8,5 +8,5 @@ sources:
 kubeVersion: ">= 1.32.0-0"
 dependencies:
   - name: jhe
-    version: 0.0.1-0.dev.git.112.hd48b6be
+    version: 0.0.1-0.dev.git.116.h989f85f
     repository: oci://ghcr.io/jupyterhealth/helm
