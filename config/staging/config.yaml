@@ -1,4 +1,21 @@
 jhe:
+  coreData:
+    assetlinks.json:
+      - relation:
+          - delegate_permission/common.handle_all_urls
+        target:
+          namespace: android_app
+          package_name: com.jupyter.health
+          sha256_cert_fingerprints:
+            - "4F:98:AF:E7:A3:8E:5F:EA:47:EE:75:13:A9:BC:D7:56:1A:D4:99:D0:B8:12:22:21:65:05:AA:C2:A0:EB:86:B1"
+    apple-app-site-association.json:
+      applinks:
+        details:
+          - appIDs:
+              - KZJSZ95597.com.jupyter.health.staging
+            components:
+              - /: /clients/ucsf-edge/*
+                comment: UCSF Edge invitation links
   httpRoute:
     hostnames:
       - berkeley-jhe-staging.jupyterhealth.org
