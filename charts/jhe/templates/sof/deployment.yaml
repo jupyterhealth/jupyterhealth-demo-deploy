@@ -69,7 +69,7 @@ spec:
             - name: HOME
               value: /tmp/
             - name: JHE_URL
-              value: http://{{ .Release.Name }}-jhe.{{ .Release.Namespace }}.svc.cluster.local
+              value: https://{{ index .Values.jhe.httpRoute.hostnames 0 }}
           ports:
             - containerPort: 8888
               name: http
