@@ -30,7 +30,7 @@ jhe:
 sof:
   enabled: true
   replicas: 1
-  image: ghcr.io/jupyterhealth/jupyterhealth-sof-provider-template:main
+  image: ghcr.io/jupyterhealth/sof-cgm-demo:main
   imagePullPolicy: Always
   command: []
   args: []

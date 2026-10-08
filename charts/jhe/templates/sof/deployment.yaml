@@ -57,7 +57,7 @@ spec:
           resources:
             {{- . | toYaml | trimSuffix "\n" | nindent 12 }}
           {{- end }}
-          {{- with .Values.imagePullPolicy }}
+          {{- with $self.imagePullPolicy }}
           imagePullPolicy: {{ . }}
           {{- end }}
           envFrom:
