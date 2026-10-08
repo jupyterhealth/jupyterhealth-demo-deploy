@@ -29,7 +29,14 @@ jobs:
           helm dependency update charts/support
           helm template charts/support
 
-      - name: test jhe chart
+      - name: update jhe chart
         run: |
           helm dependency update charts/jhe
-          helm template charts/jhe
+
+      - name: test jhe chart (staging)
+        run: |
+          helm template charts/jhe -f config/staging/config.yaml
+
+      - name: test jhe chart (prod)
+        run: |
+          helm template charts/jhe -f config/prod/config.yaml

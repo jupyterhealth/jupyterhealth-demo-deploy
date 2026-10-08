@@ -65,5 +65,8 @@ sof:
     parentRefs:
       - name: default
         namespace: support
+    timeouts:
+      request: 300s
+      backendRequest: 0s
   service:
     annotations: {}
