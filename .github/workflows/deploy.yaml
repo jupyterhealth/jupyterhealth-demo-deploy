@@ -37,7 +37,7 @@ jobs:
           aws-region: us-east-2
 
       - name: install sops
-        uses: step-security/mozilla-sops-action@26ce9aa7a4c47b98eeefbd18665245dd58c4eb1b # v2.1.1
+        uses: step-security/mozilla-sops-action@96171ff3d4516d18224d81e170155845817ad93e # v2.1.2
 
       - name: test decrypt
         run: |
