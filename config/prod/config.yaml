@@ -8,14 +8,14 @@ jhe:
   resources:
     limits:
       cpu: 2
-      memory: 700M
+      memory: 1G
     requests:
       cpu: 1
       # testing suggests ~125M per worker
       # 2: 250M
       # 8: 1G
       # 12: 1.4G
-      memory: 500M
+      memory: 600M
 
   coreData:
     assetlinks.json:
